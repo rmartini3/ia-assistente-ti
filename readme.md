@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/rmartini3/RM_AssistenteIA/main/IT/favicon.ico" alt="Logo" width="100">
+  <img src="https://raw.githubusercontent.com/rmartini3/ia-assistente-ti/main/.assets/Logo_RM_Gold.png" alt="Logo" width="100">
   <h1>Assistente de IA para Profissionais de TI</h1>
   <p>
     Seu assistente inteligente para auxiliar analistas em diagnósticos, troubleshooting e outras atividades relacionadas à TI.
@@ -12,7 +12,7 @@ Este projeto é um assistente de IA, construído com Streamlit e alimentado pela
 Essa Ferramenta foi desenvolvida para auxiliar analistas de operações (N1, N2, N3) e líderes técnicos. Ele funciona como um *runbook* inteligente, fornecendo comandos, scripts e procedimentos operacionais padronizados (POPs) alinhados às melhores práticas de mercado como ITIL, COBIT e ISO 2700x.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/rmartini3/RM_AssistenteIA/main/IT/.assets/demo.gif" alt="Demonstração do App" width="800">
+  <img src="https://raw.githubusercontent.com/rmartini3/ia-assistente-ti/main/.assets/demo.gif" alt="Demonstração do App" width="800">
 </div>
 
 ## 🎯 Funcionalidades
@@ -61,16 +61,18 @@ source .venv/bin/activate
 ```
 
 **3. Instale as Dependências**
-```bash
+-```bash
++```sh
 pip install -r requirements.txt
-```
+
 
 **4. Configure sua API Key**
-Crie um arquivo chamado `.env` na raiz da pasta do projeto, crie um arquivo .env e adicione sua chave da Groq:
+Crie um arquivo chamado `.env` na raiz da pasta do projeto, após criar o arquivo .env, adicione sua chave da Groq:
 ```
 .env
 GROQ_API_KEY="SUA_CHAVE_API_AQUI"
 ```
+#OBS: Caso não crie o arquivo .env, terá que colocar a chave manualmente!!!!
 
 **5. Execute a Aplicação**
 ```bash
@@ -81,6 +83,6 @@ A aplicação será aberta automaticamente no seu navegador.
 
 ## 🤝 Contribuições
 
-Contribuições são bem-vindas! 
-Sinta-se à vontade para abrir uma *issue* para relatar bugs ou sugerir novas funcionalidades. 
+Contribuições são bem-vindas!
+Sinta-se à vontade para abrir uma *issue* para relatar bugs ou sugerir novas funcionalidades.
 Se desejar contribuir com código, por favor, abra um *Pull Request*.

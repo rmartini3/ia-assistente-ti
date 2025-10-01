@@ -1,0 +1,87 @@
+/* --- DEFINIÇÃO DE VARIÁVEIS DE TEMA --- */
+/* Cores padrão para o tema claro */
+:root {
+    --primary-color: #4CAF50; /* Verde */
+    --primary-hover-color: #45a049;
+    --text-on-primary: #FFFFFF;
+    --container-bg-color: #f9f9f9;
+    --container-border-color: #ddd;
+    --chat-user-bg: #eef2fa; /* Fundo do balão do usuário */
+    --chat-assistant-bg: #f9f9f9; /* Fundo do balão do assistente */
+}
+
+/* Sobrescreve as variáveis quando o tema escuro nativo do Streamlit está ativo */
+body.dark {
+    --primary-color: #5cb85c; /* Verde um pouco mais claro para contraste */
+    --primary-hover-color: #4cae4c;
+    --container-bg-color: #262730;
+    --container-border-color: #444;
+    --chat-user-bg: #2b314a;
+    --chat-assistant-bg: #262730;
+}
+
+/* --- ESTILOS CUSTOMIZADOS USANDO VARIÁVEIS --- */
+
+/* Estilo para botões usando o seletor estável data-testid */
+[data-testid="stButton"] > button {
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+[data-testid="stButton"] > button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+/* Estilo para containers customizados */
+.custom-container {
+    background-color: var(--container-bg-color);
+    border: 1px solid var(--container-border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+/* --- ESTILOS PARA O CHAT E ÍCONES --- */
+
+/* Estilo para o balão de chat do assistente */
+[data-testid="chat-message-container"]:has([data-testid="chat-avatar-assistant"]) .stChatMessage {
+    background-color: var(--chat-assistant-bg);
+    border: 1px solid var(--container-border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Estilo para o balão de chat do usuário */
+[data-testid="chat-message-container"]:has([data-testid="chat-avatar-user"]) .stChatMessage {
+    background-color: var(--chat-user-bg);
+    border: 1px solid var(--container-border-color);
+}
+
+/* Remove o ícone SVG padrão dos avatares */
+[data-testid="chat-avatar-user"] svg,
+[data-testid="chat-avatar-assistant"] svg {
+    display: none;
+}
+
+/* Adiciona o emoji de robô como ícone do assistente */
+[data-testid="chat-avatar-assistant"]::after {
+    content: '🤖';
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Adiciona o emoji de usuário como ícone do usuário */
+[data-testid="chat-avatar-user"]::after {
+    content: '🧑‍💻';
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
