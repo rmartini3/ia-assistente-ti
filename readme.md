@@ -18,11 +18,11 @@ Essa Ferramenta foi desenvolvida para auxiliar analistas de operações (N1, N2,
 ## 🎯 Funcionalidades
 
 *   **🧠 Inteligência Especializada:** Treinado com um prompt de sistema robusto para atuar como um especialista em Redes, Segurança, Cloud, Banco de Dados, Suporte Técnico e mais.
-*   **⚡ Respostas Rápidas:** Geração de comandos CLI, scripts (Python, PowerShell, Bash) e queries SQL prontos para uso imediato.
-*   **📖 Guias HOW-TO:** Cada resposta inclui um guia detalhado explicando o propósito, o funcionamento e a justificativa de governança da solução proposta.
-*   **🗂️ Playbooks Operacionais:** Menus de acesso rápido para cenários comuns, agilizando a resolução de incidentes recorrentes.
-*   **🎨 Interface Customizável:** A aparência do chat e dos ícones é personalizada via CSS para uma experiência de usuário aprimorada e profissional.
-*   **🌓 Tema Adaptativo:** Os estilos customizados se adaptam perfeitamente aos temas claro e escuro nativos do Streamlit.
+*   **⚡ Respostas Rápidas:** Geração de comandos CLI, scripts (Python, PowerShell, Bash) e queries SQL prontos para uso.
+*   **📖 Guias HOW-TO:** Cada resposta segue um padrão rigoroso (Diagnóstico, Comando, Guia de Execução, Referência Oficial) para garantir clareza e conformidade.
+*   **🗂️ Playbooks Operacionais:** Um vasto catálogo de cenários pré-definidos para NOC, SOC, Cloud, ERP, ITSM, Infraestrutura, Hardware e mais, agilizando a resolução de incidentes.
+*   **🔒 Foco em Governança:** As soluções são alinhadas com as melhores práticas de mercado como ITIL, COBIT, ISO 27001 e NIST.
+*   **🎨 Interface Intuitiva:** A aparência do chat é customizada via CSS para uma experiência de usuário aprimorada e profissional, com suporte a temas claro e escuro.
 
 ## 🛠️ Tecnologias
 
@@ -62,7 +62,7 @@ source .venv/bin/activate
 
 **3. Instale as Dependências**
 -```bash
-+```sh
+```sh
 pip install -r requirements.txt
 
 
@@ -83,6 +83,6 @@ A aplicação será aberta automaticamente no seu navegador.
 
 ## 🤝 Contribuições
 
-Contribuições são bem-vindas!
-Sinta-se à vontade para abrir uma *issue* para relatar bugs ou sugerir novas funcionalidades.
+Contribuições são bem-vindas! 
+Sinta-se à vontade para abrir uma *issue* para relatar bugs ou sugerir novas funcionalidades. 
 Se desejar contribuir com código, por favor, abra um *Pull Request*.

@@ -139,7 +139,22 @@ with st.sidebar:
         )
         
         if cenario_selecionado:
-            prompt_pronto = OPERATIONAL_PLAYBOOK_PROMPTS[categoria_selecionada][cenario_selecionado]
+            playbook_data = OPERATIONAL_PLAYBOOK_PROMPTS[categoria_selecionada][cenario_selecionado]
+            
+            # Exibe os metadados do playbook selecionado
+            level = playbook_data.get('level', 'N/A')
+            tools = ', '.join(playbook_data.get('tools', []))
+            tags = ', '.join(playbook_data.get('tags', []))
+            
+            st.caption(f"**Nível:** {level} | **Ferramentas:** {tools}")
+            st.caption(f"**Tags:** {tags}")
+            
+            # Constrói o prompt para a IA usando a descrição e o script
+            prompt_pronto = (
+                f"Gere um procedimento detalhado para a seguinte tarefa:\n\n"
+                f"**Descrição:** {playbook_data['description']}\n\n"
+                f"**Exemplo de Script/Comando Relacionado (use como base):**\n```\n{playbook_data['script']}\n```"
+            )
             
             if st.button("Executar Playbook de Comando"):
                 st.session_state["execute_playbook"] = prompt_pronto

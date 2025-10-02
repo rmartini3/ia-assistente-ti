@@ -7,77 +7,206 @@ facilitando a manutenção e a expansão.
 """
 
 OPERATIONAL_PLAYBOOK_PROMPTS = {
-    "Redes (NOC)": {
-        "Flapping de Interface (Cisco)": "Gere um procedimento para diagnosticar flapping de interface em um switch Cisco, incluindo comandos para verificar logs, contadores de erro e o status da porta.",
-        "Alta Latência BGP (Juniper)": "Preciso de um guia para troubleshooting de alta latência em uma sessão BGP em um roteador Juniper. Inclua comandos para verificar a sessão, a tabela de roteamento e testes de conectividade.",
-        "OSPF Neighbors Down": "Forneça um procedimento para investigar por que uma adjacência OSPF caiu, com comandos para verificar o status dos vizinhos, logs e configuração da interface.",
-        "VLAN Não Configurada": "Como identificar e resolver um problema de 'VLAN não configurada' ou inconsistente em uma rede de switches? Forneça comandos de verificação.",
-        "Roteamento Estático – Troubleshooting": "Gere um guia de troubleshooting para uma rota estática que não está funcionando como esperado, incluindo verificação da tabela de roteamento e testes de conectividade.",
-        "VPN Site-to-Site Down": "Preciso de um playbook para diagnosticar uma VPN Site-to-Site (IPsec) que está inativa. Inclua comandos para verificar o status do túnel (fase 1 e fase 2) e o tráfego.",
-        "Falhas de Resolução DNS": "Forneça um procedimento para diagnosticar falhas de resolução de DNS a partir de um servidor ou cliente, incluindo o uso de `nslookup` ou `dig` e como verificar o cache.",
-        "Conflitos de DHCP": "Como detectar e resolver um conflito de IP (IP duplicado) em uma rede gerenciada por DHCP? Inclua comandos para servidores Windows e Linux.",
-        "Firewall Policy Misconfig": "Gere um guia para analisar uma política de firewall (Fortinet/Palo Alto) que pode estar bloqueando tráfego legítimo, incluindo como verificar logs e regras.",
-        "Switch Port Security Violation": "Qual o procedimento padrão ao receber um alerta de violação de Port Security em um switch Cisco? Inclua comandos para identificar o MAC e reativar a porta.",
+    "💼 ERP (SAP, Oracle, Dynamics)": {
+        "SOP: Análise de Job com Falha (SAP)": {
+            "description": "Crie um SOP para um analista N2 investigar um job que falhou no SAP. O procedimento deve incluir: 1. Uso da transação SM37 para visualizar o log do job. 2. Identificação da mensagem de erro. 3. Verificação de logs do sistema (ST22 para dumps). 4. Escalonamento para o time N3 com as evidências coletadas.",
+            "level": "N2", "tags": ["ERP", "SAP", "Troubleshooting"], "tools": ["SAP GUI"], "os": ["Windows"],
+            "script": "# Placeholder para comando ou anotação relevante."
+        },
+        "Playbook: Monitoramento de Job (Oracle EBS)": {
+            "description": "Gere um script SQL para Oracle que verifica o status de 'Concurrent Requests' no Oracle EBS, retornando jobs que estão em execução por mais de X horas ou que terminaram com erro. O script deve ser adaptável para ferramentas de monitoramento.",
+            "level": "N3", "tags": ["ERP", "Oracle", "Automation", "Monitoring"], "tools": ["Oracle EBS", "SQL Developer"], "os": ["Linux", "Windows"],
+            "script": "SELECT request_id, status_code, phase_code FROM fnd_concurrent_requests WHERE status_code = 'E' OR (phase_code = 'R' AND (SYSDATE - last_update_date) * 24 > 4);"
+        },
     },
-    "Sistemas Operacionais": {
-        "Processos de Alto Consumo (Linux)": "Gere um comando para identificar os 5 processos com maior consumo de CPU e memória em um servidor Linux, usando `top` ou `ps`.",
-        "Verificar Portas Abertas (Windows)": "Forneça um script PowerShell para listar todas as portas TCP/UDP abertas em um servidor Windows e os processos associados a elas.",
-        "Análise Rápida de Logs (Bash)": "Preciso de um comando `grep` e `awk` para encontrar erros ('ERROR' ou 'Failed') em um arquivo de log grande (`/var/log/syslog`) e contar as ocorrências.",
-        "Análise de Kernel Panic (macOS)": "Como realizar uma análise inicial de um log de Kernel Panic em um macOS para identificar a possível causa?",
-        "Android App Crash Analysis": "Forneça o comando `adb logcat` para filtrar e analisar o log de um aplicativo que está fechando inesperadamente (crash) em um dispositivo Android.",
-        "Coletar Sysdiagnose (iOS)": "Qual o procedimento para gerar e coletar um `sysdiagnose` de um iPhone para analisar problemas de performance ou rede?",
-        "Análise de Uso de Disco (Linux)": "Gere um comando para listar os diretórios que mais consomem espaço em disco a partir da raiz (`/`), ordenados por tamanho.",
-        "Identificar Consumo Anômalo de CPU": "Preciso de um procedimento para investigar um pico anômalo de CPU em um servidor Windows, usando o Gerenciador de Tarefas e o Monitor de Recursos.",
-        "Serviço Parado (Windows/Linux)": "Forneça os comandos para verificar o status de um serviço (ex: 'apache2' ou 'w3svc') e reiniciá-lo, tanto em Linux (systemd) quanto em Windows (PowerShell).",
-        "Script de Backup Simples (Bash)": "Crie um script bash simples para fazer backup de um diretório (`/var/www`) para um arquivo .tar.gz com data no nome, e como agendá-lo com `cron`.",
+    "🧩 CRM (Salesforce, Dynamics, HubSpot)": {
+        "SOP: Cadastro de Lead em Massa (Salesforce)": {
+            "description": "Crie um SOP para um analista N1 realizar a importação de uma lista de leads em CSV para o Salesforce usando o 'Data Import Wizard', incluindo a verificação de campos obrigatórios e o tratamento de erros.",
+            "level": "N1", "tags": ["CRM", "Salesforce", "Data Import"], "tools": ["Salesforce"], "os": ["Any"],
+            "script": "# Procedimento manual, sem script aplicável."
+        },
+        "Playbook: Script de Extração de Dados via API (Salesforce)": {
+            "description": "Crie um script Python que use a API REST do Salesforce (biblioteca simple-salesforce) para extrair todos os contatos de uma determinada conta e salvar em um arquivo JSON.",
+            "level": "N3", "tags": ["CRM", "Salesforce", "API", "Automation"], "tools": ["Python", "VS Code"], "os": ["Windows", "Linux", "macOS"],
+            "script": "from simple_salesforce import Salesforce\n\nsf = Salesforce(username='user', password='password', security_token='token')\n\n# Exemplo de query\nrecords = sf.query(\"SELECT Id, Name FROM Contact WHERE Account.Name = 'Exemplo Corp'\")"
+        },
     },
-    "Cloud Híbrida": {
-        "Verificar Status de VM (AWS EC2)": "Gere um comando AWS CLI para verificar o status de uma instância EC2 específica, incluindo os status checks, e como reiniciá-la se necessário.",
-        "Inventário de VMs (GCP)": "Forneça um comando `gcloud` para listar todas as instâncias de VM em um projeto GCP, exibindo nome, status, zona e endereço IP.",
-        "Latência em API (Azure Web App)": "Qual o procedimento para diagnosticar alta latência em uma Azure Web App, incluindo como verificar os logs e o Health Check?",
-        "Auditoria de Política IAM (AWS)": "Preciso de um comando AWS CLI para listar as políticas IAM anexadas a um usuário específico e analisar suas permissões.",
-        "Auditoria de Storage (Azure)": "Como verificar se os contêineres de um Azure Storage Account têm acesso público anônimo habilitado, usando Azure CLI?",
-        "Análise de Roteamento Cloud (AWS)": "Gere um comando AWS CLI para descrever a tabela de rotas associada a uma subnet específica em uma VPC.",
-        "Verificar Integridade de Snapshot (AWS)": "Qual o procedimento para verificar se um snapshot de um volume EBS foi concluído com sucesso e está disponível?",
-        "Identificar Recursos Ociosos (GCP)": "Forneça um comando `gcloud` para identificar discos persistentes não anexados a nenhuma instância de VM, para otimização de custos.",
-        "Inventário Multi-Region (AWS)": "Crie um script (Bash ou Python) que use AWS CLI para listar todas as instâncias EC2 em todas as regiões da AWS.",
-        "Verificar Regras de Firewall (Azure)": "Forneça um comando Azure CLI para listar as regras de um Network Security Group (NSG) específico.",
+    "🛠️ ITSM (ServiceNow, Jira, GLPI)": {
+        "SOP: Criação de Ticket Crítico (P1)": {
+            "description": "Crie um SOP para um analista N1 registrar um incidente crítico (P1) no ServiceNow, incluindo: 1. Preenchimento dos campos obrigatórios. 2. Associação de CIs (Itens de Configuração) afetados. 3. Acionamento do workflow de incidente maior. 4. Escalonamento imediato para o gestor de incidentes.",
+            "level": "N1", "tags": ["ITSM", "ServiceNow", "Incident Management"], "tools": ["ServiceNow"], "os": ["Any"],
+            "script": "# Procedimento manual, sem script aplicável."
+        },
+        "Playbook: Script de Relatório de SLA (Jira)": {
+            "description": "Crie um script em Python que use a API REST do Jira para extrair dados de SLA (tickets que violaram o SLA de resolução) de um projeto específico e gerar um relatório em CSV.",
+            "level": "N3", "tags": ["ITSM", "Jira", "API", "Reporting"], "tools": ["Python", "Jira API"], "os": ["Windows", "Linux", "macOS"],
+            "script": "import requests\n\n# Exemplo de chamada à API do Jira\nresponse = requests.get('https://your-jira.com/rest/api/2/search?jql=project=HELPDESK AND \"SLA\" = breached()')"
+        },
     },
-    "Segurança / SOC": {
-        "Supressão de Alertas Duplicados (SIEM)": "Descreva um procedimento padrão para criar uma regra de supressão para um alerta de segurança que está gerando muitos falsos positivos duplicados em um SIEM (ex: Splunk/QRadar).",
-        "Análise de Falso Positivo": "Qual o processo para analisar um alerta de 'Malware Detecctado' e classificá-lo como um falso positivo? Inclua passos como análise de hash e comportamento.",
-        "Quarentena de Porta (Cisco)": "Gere o procedimento e os comandos para colocar uma porta de switch Cisco em uma VLAN de quarentena em resposta a um alerta de malware.",
-        "Análise de Logs IDS/IPS": "Como analisar um log de um alerta do Snort/Suricata para entender um possível ataque? Peça um exemplo de log e como interpretá-lo.",
-        "Verificação de Regras WAF": "Preciso de um guia para verificar por que um WAF (ex: Cloudflare/AWS WAF) está bloqueando uma requisição legítima de um usuário.",
-        "Investigação de Acesso VPN Anômalo": "Qual o procedimento para investigar um alerta de login VPN bem-sucedido de um local incomum? Inclua passos de verificação e contato com o usuário.",
-        "Análise de Alerta de EDR": "Recebi um alerta crítico de um EDR (ex: CrowdStrike/SentinelOne). Qual o playbook de resposta a incidentes imediato? (isolar host, coletar artefatos, etc.)",
-        "Correlação de Logs no SIEM": "Como criar uma query de correlação em um SIEM para cruzar logs de firewall, proxy e Active Directory para um usuário específico em uma janela de tempo?",
-        "Busca por IOCs": "Forneça um script (PowerShell ou Bash) para buscar uma lista de IOCs (hashes de arquivo, IPs) em um sistema local ou em logs.",
-        "Detecção de 'Shadow Credentials'": "Qual o procedimento para detectar o uso de credenciais suspeitas ou não autorizadas, analisando logs de autenticação do Active Directory?",
+    "🌐 NOC - Monitoramento e Redes (Zabbix, PRTG)": {
+        "[PRTG] SOP: Triagem de Alerta de Banda": {
+            "description": "Procedimento para um operador N1 revisar um alerta de alto consumo de banda no PRTG, identificar o host de origem e o destino, e escalar para o time de redes N2 se o tráfego for inesperado.",
+            "level": "N1", "tags": ["NOC", "Monitoring", "PRTG"], "tools": ["PRTG"], "os": ["Windows"],
+            "script": "# Procedimento de análise no dashboard do PRTG."
+        },
+        "[Zabbix] Playbook: Script de Manutenção via API": {
+            "description": "Crie um script Python que use a API do Zabbix para colocar um grupo de hosts em modo de manutenção por um período determinado, útil para janelas de atualização.",
+            "level": "N2", "tags": ["NOC", "Zabbix", "Automation", "API"], "tools": ["Zabbix API", "Python"], "os": ["Linux"],
+            "script": "# Exemplo de payload para a API do Zabbix: zabbix_api.maintenance.create(...)"
+        },
+        "[SolarWinds] Playbook: Monitorar Nós via API": {
+            "description": "Gere um script PowerShell que use a API da SolarWinds para consultar o status de um nó específico e retornar informações como CPU, memória e tempo de resposta.",
+            "level": "N2", "tags": ["NOC", "SolarWinds", "Monitoring", "API"], "tools": ["SolarWinds"], "os": ["Windows"],
+            "script": "# Invoke-RestMethod -Uri 'https://your-solarwinds:17778/SolarWinds/InformationService/v3/Json/Query' ..."
+        },
+        "[Nagios] Playbook: Checagem de Serviço via NRPE": {
+            "description": "Forneça o comando para um analista N1 executar manualmente uma checagem de um serviço (ex: HTTP) em um host remoto usando o `check_nrpe` a partir do servidor Nagios.",
+            "level": "N1", "tags": ["NOC", "Nagios", "Troubleshooting"], "tools": ["Nagios"], "os": ["Linux"],
+            "script": "/usr/local/nagios/libexec/check_nrpe -H <host_ip> -c check_http"
+        },
+        "[Grafana] Playbook: Criação de Dashboard via API": {
+            "description": "Crie um script Python que use a API REST do Grafana para criar um novo dashboard a partir de um arquivo de modelo JSON, automatizando a configuração de visualizações.",
+            "level": "N3", "tags": ["NOC", "Grafana", "Automation", "API"], "tools": ["Grafana"], "os": ["Linux", "Windows", "macOS"],
+            "script": "# requests.post('http://your-grafana/api/dashboards/db', json=dashboard_json, headers=headers)"
+        },
+        "[Prometheus] SOP: Análise de Regra de Alerta": {
+            "description": "Crie um SOP para um analista N2 revisar e validar uma regra de alerta (Alerting Rule) em Prometheus, verificando a sintaxe da expressão PromQL e os limiares definidos.",
+            "level": "N2", "tags": ["NOC", "Prometheus", "Monitoring"], "tools": ["Prometheus"], "os": ["Linux"],
+            "script": "# promtool check rules /path/to/rules.yml"
+        },
     },
-    "Banco de Dados & Triggers": {
-        "Identificar Query Lenta (PostgreSQL)": "Forneça uma query SQL para o PostgreSQL que identifique as consultas mais lentas em execução ou executadas recentemente, usando `pg_stat_activity`.",
-        "Sessões Suspeitas (SQL Server)": "Gere uma query para SQL Server que liste todas as sessões ativas, mostrando o usuário, host de origem e a última query executada, para identificar atividades fora do horário comercial.",
-        "Auditoria em Tabelas Críticas (Oracle)": "Como habilitar a auditoria padrão do Oracle (`AUDIT`) para todas as operações (SELECT, INSERT, UPDATE, DELETE) em uma tabela crítica como `HR.EMPLOYEES`?",
-        "Trigger de Auditoria Universal (MySQL)": "Crie um exemplo de trigger para MySQL/MariaDB que registre qualquer alteração (INSERT, UPDATE, DELETE) em uma tabela específica para uma tabela de log de auditoria.",
-        "Trigger de Prevenção de Mass Delete": "Crie um trigger para SQL Server ou PostgreSQL que impeça a exclusão de mais de 100 registros de uma tabela de uma só vez, como medida de segurança.",
-        "Exportar Logs para SIEM": "Descreva um método para exportar logs de auditoria de um banco de dados (ex: PostgreSQL) para um formato (como JSON ou CSV) que possa ser ingerido por um SIEM.",
-        "Verificar Integridade de Backup": "Qual o comando para verificar a integridade de um arquivo de backup do SQL Server (`.bak`) sem restaurá-lo completamente?",
-        "Diagnóstico de Locks e Deadlocks": "Forneça uma query para identificar `locks` e `deadlocks` em um banco de dados PostgreSQL ou SQL Server.",
-        "Monitoramento de Operações (MongoDB)": "Qual comando no `mongosh` pode ser usado para monitorar as operações em tempo real em um banco de dados MongoDB?",
-        "Trigger em Cloud DB (AWS Aurora)": "Como criar um trigger em um banco de dados AWS Aurora (compatível com MySQL) que invoque uma função Lambda para enviar um alerta ao SIEM?",
+    "🔒 SOC - Segurança (Splunk, QRadar, CrowdStrike)": {
+        "SOP: Triagem de Alerta de Segurança (Splunk)": {
+            "description": "Procedimento para um operador N1 analisar e classificar um alerta de segurança no Splunk, verificando se é um falso positivo ou um incidente real, e escalando para o N2 com as informações relevantes.",
+            "level": "N1", "tags": ["SOC", "Security", "Splunk", "SIEM"], "tools": ["Splunk"], "os": ["Any"],
+            "script": "index=wineventlog EventCode=4625 | stats count by src_ip, user | where count > 10"
+        },
+        "[CrowdStrike] Playbook: Script de Isolamento de Host": {
+            "description": "Crie um script Python que use a API do CrowdStrike Falcon para isolar um host da rede com base no seu ID de dispositivo (AID), como uma ação de resposta a incidente.",
+            "level": "N2", "tags": ["SOC", "EDR", "CrowdStrike", "Automation"], "tools": ["CrowdStrike API", "Python"], "os": ["Any"],
+            "script": "# Exemplo de chamada à API: POST /devices/actions/v1?action_name=contain"
+        },
+        "[QRadar] Playbook: Criação de Regra de Correlação": {
+            "description": "Gere um guia para um especialista N3 criar uma regra de correlação no QRadar que dispare um alerta quando houver 5 falhas de login seguidas de um sucesso para o mesmo usuário em menos de 1 minuto.",
+            "level": "N3", "tags": ["SOC", "QRadar", "SIEM", "Correlation"], "tools": ["QRadar"], "os": ["Any"],
+            "script": "# Procedimento na interface do QRadar: Rules -> Actions -> New Event Rule."
+        },
+        "[Elastic Security] Playbook: Busca de Ameaças (Threat Hunting)": {
+            "description": "Forneça uma query KQL (Kibana Query Language) para um analista N2 buscar por processos iniciados a partir de um documento do Microsoft Office (winword.exe, excel.exe) nos logs de endpoint.",
+            "level": "N2", "tags": ["SOC", "Elastic", "SIEM", "Threat Hunting"], "tools": ["Elastic Security", "Kibana"], "os": ["Any"],
+            "script": "process.parent.name: (winword.exe or excel.exe or powerpnt.exe) and process.name: (powershell.exe or cmd.exe or wscript.exe)"
+        },
+        "[SentinelOne] SOP: Remediação de Ameaça": {
+            "description": "Crie um SOP para um analista N1 usar o console do SentinelOne para remediar uma ameaça detectada, incluindo as opções de 'Quarantine', 'Kill' e 'Rollback'.",
+            "level": "N1", "tags": ["SOC", "EDR", "SentinelOne", "Response"], "tools": ["SentinelOne"], "os": ["Any"],
+            "script": "# Procedimento manual no console do SentinelOne."
+        },
+        "[Defender ATP] Playbook: Investigação Avançada": {
+            "description": "Forneça uma query de 'Advanced Hunting' para o Microsoft Defender ATP para um analista N2 listar todas as conexões de rede de saída feitas pelo processo `powershell.exe` nos últimos 7 dias.",
+            "level": "N2", "tags": ["SOC", "EDR", "Defender ATP", "Threat Hunting"], "tools": ["Defender ATP"], "os": ["Windows"],
+            "script": "DeviceNetworkEvents | where InitiatingProcessFileName =~ 'powershell.exe' and ActionType == 'ConnectionSuccess'"
+        },
     },
-    "Shadow IT": {
-        "Scan de Hosts Ativos na LAN": "Forneça um script bash de uma linha usando `nmap` para escanear uma sub-rede (ex: 192.168.1.0/24), identificar hosts ativos e exportar a lista para um arquivo CSV.",
-        "Descoberta de EC2 não Documentado (AWS)": "Crie um script que use a AWS CLI para listar todas as instâncias EC2 e compare com uma lista de instâncias aprovadas em um arquivo CSV, reportando as não documentadas.",
-        "Descoberta de VMs não Documentadas (GCP)": "Forneça um comando `gcloud` para listar todas as VMs e filtre por aquelas que não possuem uma `label` específica, como 'owner' ou 'project'.",
-        "Detecção de SaaS via Logs de Firewall": "Como analisar logs de um firewall de borda para identificar tráfego para domínios de serviços SaaS conhecidos e não autorizados (ex: Dropbox, Trello)?",
-        "Descoberta de IoT/Raspberry na Rede": "Qual a melhor abordagem com `nmap` para descobrir dispositivos IoT ou Raspberry Pi em uma rede, buscando por portas ou serviços comuns (SSH, VNC, etc.)?",
-        "Scan de Containers não Autorizados": "Como escanear uma rede para encontrar hosts executando o Docker Engine (porta 2375/2376) que não deveriam estar lá?",
-        "Inventário de VMs Locais (VirtualBox)": "Forneça um comando para listar todas as VMs existentes no VirtualBox em uma máquina local usando `VBoxManage`.",
-        "Análise de Tráfego Proxy para SaaS": "Gere um guia sobre como usar os logs de um proxy (ex: Squid) para gerar um relatório dos principais domínios acessados, ajudando a identificar o uso de Shadow SaaS.",
-        "Inventário de Agentes em Endpoints": "Como criar um script PowerShell para ser executado em um endpoint Windows e listar todos os softwares instalados, para identificar agentes não autorizados?",
-        "Detecção de Shadow Storage (AWS)": "Forneça um comando AWS CLI para listar todos os buckets S3 que estão publicamente acessíveis em uma conta, um sinal comum de Shadow Storage.",
+    "🏗️ Infraestrutura & Virtualização (VMware, Hyper-V)": {
+        "SOP: Provisionamento de VM (VMware)": {
+            "description": "Procedimento para um analista N2 provisionar uma nova máquina virtual no vSphere a partir de um template, incluindo configuração de rede e storage.",
+            "level": "N2", "tags": ["Infra", "Virtualization", "VMware"], "tools": ["vSphere", "vCenter"], "os": ["Windows", "Linux"],
+            "script": "# Procedimento manual no vCenter."
+        },
+        "Playbook: Script de Snapshot e Rollback (Hyper-V)": {
+            "description": "Crie um script PowerShell para um analista N2 criar um checkpoint (snapshot) de uma VM no Hyper-V antes de uma mudança e, se necessário, realizar o rollback para esse checkpoint.",
+            "level": "N2", "tags": ["Infra", "Virtualization", "Hyper-V"], "tools": ["Hyper-V Manager", "PowerShell"], "os": ["Windows"],
+            "script": "Checkpoint-VM -Name 'MyVM' -SnapshotName 'Before-Update'\n# Restore-VMSnapshot -Name 'MyVM' -SnapshotName 'Before-Update'"
+        },
+        "[Proxmox] Playbook: Gerenciamento de Container LXC": {
+            "description": "Forneça os comandos da CLI do Proxmox (`pct`) para um analista N2 iniciar, parar e criar um snapshot de um container LXC.",
+            "level": "N2", "tags": ["Infra", "Proxmox", "Virtualization", "Container"], "tools": ["Proxmox"], "os": ["Linux"],
+            "script": "pct start <vmid>\npct stop <vmid>\npct snapshot <vmid> <snapshot_name>"
+        },
+        "[Citrix Xen] Playbook: Provisionamento de VM via CLI": {
+            "description": "Gere os comandos `xe` para a CLI do XenServer para um especialista N3 criar uma nova VM a partir de um template, configurar sua rede e iniciar a máquina.",
+            "level": "N3", "tags": ["Infra", "Citrix", "Xen", "Virtualization"], "tools": ["XenServer"], "os": ["Linux"],
+            "script": "# xe vm-install template='MyTemplate' new-name-label='NewVM'\n# xe vif-create ...\n# xe vm-start vm='NewVM'"
+        },
+        "[Kubernetes] Playbook: Diagnóstico de Pod com Falha": {
+            "description": "Forneça os comandos `kubectl` para um analista N2 diagnosticar um pod que está no estado 'CrashLoopBackOff', incluindo como ver os logs, descrever o pod e verificar eventos.",
+            "level": "N2", "tags": ["Infra", "Kubernetes", "Container", "Troubleshooting"], "tools": ["kubectl"], "os": ["Linux"],
+            "script": "kubectl logs <pod-name>\nkubectl describe pod <pod-name>\nkubectl get events"
+        },
+        "[Docker] SOP: Limpeza de Recursos Não Utilizados": {
+            "description": "Crie um SOP para um analista N2 realizar uma limpeza segura de recursos não utilizados do Docker, como containers parados, imagens 'dangling' e volumes não associados.",
+            "level": "N2", "tags": ["Infra", "Docker", "Container", "Maintenance"], "tools": ["Docker"], "os": ["Linux", "Windows"],
+            "script": "docker system prune -a"
+        },
     },
-    # Adicione as outras categorias e cenários aqui, seguindo o mesmo padrão.
+    "☁️ Cloud (AWS, Azure, GCP)": {
+        "SOP: Provisionamento de Instância EC2 (AWS)": {
+            "description": "Crie um SOP para um analista N2 provisionar uma nova instância EC2 na AWS, incluindo: 1. Seleção da AMI e tipo de instância. 2. Configuração de VPC, subnet e Security Group. 3. Associação de chave SSH. 4. Aplicação de tags de identificação.",
+            "level": "N2", "tags": ["Cloud", "AWS", "EC2"], "tools": ["AWS Console"], "os": ["Linux", "Windows"],
+            "script": "# Procedimento manual no Console AWS."
+        },
+        "Playbook: Script de Otimização de Custos (Azure)": {
+            "description": "Crie um script PowerShell usando o módulo Az para identificar recursos ociosos no Azure, como discos não anexados ou IPs públicos não associados, e exportar a lista para um CSV.",
+            "level": "N3", "tags": ["Cloud", "Azure", "Cost Optimization"], "tools": ["Azure PowerShell"], "os": ["Windows"],
+            "script": "Get-AzDisk | Where-Object { $_.ManagedBy -eq $null } | Select-Object Name, ResourceGroupName"
+        },
+        "[GCP] Playbook: Auditoria de Recursos": {
+            "description": "Forneça um comando `gcloud` para um analista N3 listar todas as instâncias de VM em um projeto que não possuem uma `label` específica, como 'owner' ou 'cost-center', para fins de auditoria.",
+            "level": "N3", "tags": ["Cloud", "GCP", "Audit", "Governance"], "tools": ["gcloud"], "os": ["Linux", "Windows", "macOS"],
+            "script": "gcloud compute instances list --filter='-labels.owner:*'"
+        },
+        "[Oracle Cloud] Playbook: Gerenciamento de Recursos": {
+            "description": "Gere um comando da OCI CLI para um analista N2 listar todas as instâncias de computação em um compartimento específico, exibindo seu estado e forma (shape).",
+            "level": "N2", "tags": ["Cloud", "Oracle", "OCI"], "tools": ["OCI CLI"], "os": ["Linux", "Windows"],
+            "script": "oci compute instance list -c <compartment_ocid> --query 'data[*].{Name:\"display-name\", State:\"lifecycle-state\", Shape:shape}'"
+        },
+    },
+    "🖥️ Hardware & Periféricos": {
+        "SOP: Busca de Drivers por Modelo": {
+            "description": "Crie um SOP para um analista N1 encontrar e baixar drivers para um dispositivo ou periférico (ex: impressora, placa de vídeo, scanner, smartphone) a partir do site oficial do fabricante. O procedimento deve incluir: 1. Identificação correta do modelo do dispositivo. 2. Busca no Google usando termos como '[Fabricante] [Modelo] drivers'. 3. Navegação até a seção de suporte/downloads do site oficial. 4. Seleção do sistema operacional correto antes de baixar.",
+            "level": "N1", "tags": ["Hardware", "Drivers", "Troubleshooting", "Desktop Support", "Field Service"], "tools": ["Web Browser"], "os": ["Any"],
+            "script": "# Procedimento manual. Focar na busca precisa usando o modelo exato do dispositivo."
+        },
+        "SOP: Download Seguro de Software": {
+            "description": "Crie um SOP para um analista N1 baixar um software comum (ex: 7-Zip, Notepad++, Adobe Reader) de forma segura. O procedimento deve enfatizar: 1. A importância de baixar SEMPRE do site oficial do desenvolvedor. 2. Como identificar o site oficial em uma busca. 3. Os riscos de usar sites de download de terceiros (malware, adware, versões desatualizadas).",
+            "level": "N1", "tags": ["Software", "Security", "Desktop Support", "Governance"], "tools": ["Web Browser"], "os": ["Any"],
+            "script": "# Procedimento manual. O foco é a segurança e a identificação da fonte oficial."
+        }
+    },
+    "�️ Backup & DR (Veeam, Commvault)": {
+        "[Veeam] SOP: Execução de Job de Backup": {
+            "description": "Crie um SOP para um analista N2 iniciar manualmente um job de backup no Veeam Backup & Replication e verificar seu status de conclusão.",
+            "level": "N2", "tags": ["Backup", "Veeam"], "tools": ["Veeam"], "os": ["Windows"],
+            "script": "# Start-VBRJob -Job 'My Backup Job'"
+        },
+        "[Commvault] Playbook: Automação de Relatório de Job": {
+            "description": "Gere um exemplo de como usar a API REST da Commvault com Python para obter o status dos jobs de backup das últimas 24 horas e gerar um relatório simples.",
+            "level": "N3", "tags": ["Backup", "Commvault", "Automation", "API"], "tools": ["Commvault"], "os": ["Any"],
+            "script": "# requests.get('http://your-commserve/WebConsole/api/Job', headers=headers)"
+        },
+    },
+    "9️⃣ Automation (Ansible, Terraform)": {
+        "SOP: Execução de Playbook Ansible": {
+            "description": "Crie um SOP para um analista N2 executar um playbook Ansible existente para aplicar uma configuração em um grupo de servidores, incluindo os comandos para checagem de sintaxe e execução em modo 'dry run' antes da aplicação real.",
+            "level": "N2", "tags": ["Automation", "Ansible", "Configuration Management"], "tools": ["Ansible"], "os": ["Linux"],
+            "script": "ansible-playbook --check my_playbook.yml\nansible-playbook my_playbook.yml"
+        },
+        "Playbook: Template de Infraestrutura (Terraform)": {
+            "description": "Forneça um arquivo `main.tf` do Terraform para um especialista N3 provisionar uma infraestrutura de rede básica na AWS, contendo uma VPC, uma subnet pública e uma subnet privada.",
+            "level": "N3", "tags": ["Automation", "IaC", "Terraform", "AWS"], "tools": ["Terraform", "AWS CLI"], "os": ["Any"],
+            "script": "provider \"aws\" { region = \"us-east-1\" }\n\nresource \"aws_vpc\" \"main\" { cidr_block = \"10.0.0.0/16\" }"
+        },
+    },
+    "👔 Gestão & Liderança Técnica": {
+        "SOP: Gestão de Crise em Incidente Crítico (P1)": {
+            "description": "Crie um guia de ação para um Líder Técnico gerenciar um incidente P1. O guia deve focar em: 1. Estabelecer a comunicação (ponte de conferência, war room). 2. Identificar o impacto e os serviços afetados. 3. Acionar as equipes de suporte necessárias. 4. Coordenar a comunicação com stakeholders. 5. Iniciar a documentação do incidente.",
+            "level": "Líder Técnico", "tags": ["ITIL", "Incident Management", "Governance"], "tools": ["ServiceNow", "Jira"], "os": ["Any"],
+            "script": "# Procedimento de gestão, sem script técnico."
+        },
+        "SOP: Análise de Causa Raiz (RCA) Pós-Incidente": {
+            "description": "Gere um SOP para conduzir uma Análise de Causa Raiz (RCA) após a resolução de um incidente P1. O procedimento deve seguir o método '5 Porquês' e incluir: 1. Linha do tempo do evento. 2. Identificação da causa raiz. 3. Definição de ações corretivas e preventivas. 4. Documentação da lição aprendida.",
+            "level": "N3/Líder", "tags": ["ITIL", "Problem Management", "Governance"], "tools": ["Confluence", "Miro"], "os": ["Any"],
+            "script": "# Template de documento RCA."
+        },
+    },
 }
