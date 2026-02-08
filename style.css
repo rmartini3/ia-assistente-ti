@@ -1,4 +1,4 @@
-/* --- DEFINIÇÃO DE VARIÁVEIS DE TEMA --- */
+﻿/* --- DEFINIÇÃO DE VARIÁVEIS DE TEMA --- */
 /* Cores padrão para o tema claro */
 :root {
     --primary-color: #4CAF50; /* Verde */
@@ -85,3 +85,4 @@ body.dark {
     align-items: center;
     justify-content: center;
 }
+

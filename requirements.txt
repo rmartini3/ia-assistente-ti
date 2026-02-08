@@ -1,34 +1,33 @@
-# ======================================================================
-# DEPENDÊNCIAS PRINCIPAIS DA APLICAÇÃO
+﻿# ======================================================================
+# DEPENDENCIAS PRINCIPAIS DA APLICACAO
 # Bibliotecas que o app.py usa para funcionar.
 # ======================================================================
 streamlit          # Framework web para a interface
-groq               # SDK da API Groq para acesso à IA
-python-dotenv      # Para carregar a API Key do arquivo .env
-pillow             # Para manipulação de imagem (favicon)
+groq               # SDK da API Groq para acesso a IA
+python-dotenv      # Carregar variaveis de ambiente (.env)
+pillow             # Manipulacao de imagem (favicon)
 
 # ======================================================================
-# DEPENDÊNCIAS DE ALVO PARA SCRIPTS GERADOS PELA IA
-# Bibliotecas que a IA foi instruída a usar ao gerar scripts.
-# Opcionais para o funcionamento do assistente, mas recomendadas 
-# para executar os scripts gerados.
+# DEPENDENCIAS DE ALVO PARA SCRIPTS GERADOS PELA IA
+# Opcionais para o funcionamento do assistente, mas recomendadas para
+# executar scripts sugeridos pela IA.
 # ======================================================================
 
-# --- Automação de Rede e Acesso Remoto ---
-paramiko           # Para automação de SSH
-netmiko            # Para automação CLI de equipamentos de rede (Cisco, etc.)
+# --- Automacao de Rede e Acesso Remoto ---
+paramiko           # Automacao de SSH
+netmiko            # Automacao CLI de equipamentos de rede (Cisco etc.)
 
 # --- Cloud ---
 boto3              # SDK da AWS para Python
 google-cloud       # SDK do Google Cloud
 azure-mgmt-compute # SDK do Azure para gerenciamento de VMs
 
-# --- Análise de Dados e Sistema ---
-pandas             # Para análise e manipulação de dados (ex: logs em CSV)
-psutil             # Para monitoramento de sistema (CPU, RAM, Disco)
-requests           # Para fazer chamadas HTTP/API
+# --- Analise de Dados e Sistema ---
+pandas             # Analise e manipulacao de dados (ex: logs em CSV)
+psutil             # Monitoramento de sistema (CPU, RAM, disco)
+requests           # Chamadas HTTP/API
 
-# --- Formatação e Utilidades ---
-pyyaml             # Para manipular arquivos de configuração YAML
-colorama           # Para colorir saídas de texto no terminal
-tabulate           # Para criar tabelas formatadas no terminal
+# --- Formatacao e Utilidades ---
+pyyaml             # Manipulacao de arquivos YAML
+colorama           # Cores no terminal
+tabulate           # Tabelas formatadas no terminal

@@ -1,4 +1,4 @@
-# c:\Users\Rafael\Desktop\Desenvolvimento\projetos\DEV\RM_AssistenteIA\IT\playbooks.py
+﻿# c:\Users\Rafael\Desktop\Desenvolvimento\projetos\DEV\RM_AssistenteIA\IT\playbooks.py
 
 """
 Este arquivo centraliza todos os prompts para os Playbooks de Execução Rápida.
@@ -6,8 +6,16 @@ A estrutura de dicionário aninhado permite uma organização clara por categori
 facilitando a manutenção e a expansão.
 """
 
+"""
+Estrutura dos playbooks:
+- Dicionário de primeiro nível: categorias (ex.: ERP, CRM, ITSM).
+- Segundo nível: cenários ou SOPs dentro de cada categoria.
+- Cada cenário contém metadados (level, tags, tools, os) e um script ou instrução base.
+Use this file to expand or ajustar prompts reutilizados na sidebar do app.
+"""
+
 OPERATIONAL_PLAYBOOK_PROMPTS = {
-    "💼 ERP (SAP, Oracle, Dynamics)": {
+    "ERP (SAP, Oracle, Dynamics)": {
         "SOP: Análise de Job com Falha (SAP)": {
             "description": "Crie um SOP para um analista N2 investigar um job que falhou no SAP. O procedimento deve incluir: 1. Uso da transação SM37 para visualizar o log do job. 2. Identificação da mensagem de erro. 3. Verificação de logs do sistema (ST22 para dumps). 4. Escalonamento para o time N3 com as evidências coletadas.",
             "level": "N2", "tags": ["ERP", "SAP", "Troubleshooting"], "tools": ["SAP GUI"], "os": ["Windows"],
@@ -19,7 +27,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "SELECT request_id, status_code, phase_code FROM fnd_concurrent_requests WHERE status_code = 'E' OR (phase_code = 'R' AND (SYSDATE - last_update_date) * 24 > 4);"
         },
     },
-    "🧩 CRM (Salesforce, Dynamics, HubSpot)": {
+    "CRM (Salesforce, Dynamics, HubSpot)": {
         "SOP: Cadastro de Lead em Massa (Salesforce)": {
             "description": "Crie um SOP para um analista N1 realizar a importação de uma lista de leads em CSV para o Salesforce usando o 'Data Import Wizard', incluindo a verificação de campos obrigatórios e o tratamento de erros.",
             "level": "N1", "tags": ["CRM", "Salesforce", "Data Import"], "tools": ["Salesforce"], "os": ["Any"],
@@ -31,7 +39,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "from simple_salesforce import Salesforce\n\nsf = Salesforce(username='user', password='password', security_token='token')\n\n# Exemplo de query\nrecords = sf.query(\"SELECT Id, Name FROM Contact WHERE Account.Name = 'Exemplo Corp'\")"
         },
     },
-    "🛠️ ITSM (ServiceNow, Jira, GLPI)": {
+    "ITSM (ServiceNow, Jira, GLPI)": {
         "SOP: Criação de Ticket Crítico (P1)": {
             "description": "Crie um SOP para um analista N1 registrar um incidente crítico (P1) no ServiceNow, incluindo: 1. Preenchimento dos campos obrigatórios. 2. Associação de CIs (Itens de Configuração) afetados. 3. Acionamento do workflow de incidente maior. 4. Escalonamento imediato para o gestor de incidentes.",
             "level": "N1", "tags": ["ITSM", "ServiceNow", "Incident Management"], "tools": ["ServiceNow"], "os": ["Any"],
@@ -43,7 +51,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "import requests\n\n# Exemplo de chamada à API do Jira\nresponse = requests.get('https://your-jira.com/rest/api/2/search?jql=project=HELPDESK AND \"SLA\" = breached()')"
         },
     },
-    "🌐 NOC - Monitoramento e Redes (Zabbix, PRTG)": {
+    "NOC - Monitoramento e Redes (Zabbix, PRTG)": {
         "[PRTG] SOP: Triagem de Alerta de Banda": {
             "description": "Procedimento para um operador N1 revisar um alerta de alto consumo de banda no PRTG, identificar o host de origem e o destino, e escalar para o time de redes N2 se o tráfego for inesperado.",
             "level": "N1", "tags": ["NOC", "Monitoring", "PRTG"], "tools": ["PRTG"], "os": ["Windows"],
@@ -75,7 +83,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "# promtool check rules /path/to/rules.yml"
         },
     },
-    "🔒 SOC - Segurança (Splunk, QRadar, CrowdStrike)": {
+    "SOC - Segurança (Splunk, QRadar, CrowdStrike)": {
         "SOP: Triagem de Alerta de Segurança (Splunk)": {
             "description": "Procedimento para um operador N1 analisar e classificar um alerta de segurança no Splunk, verificando se é um falso positivo ou um incidente real, e escalando para o N2 com as informações relevantes.",
             "level": "N1", "tags": ["SOC", "Security", "Splunk", "SIEM"], "tools": ["Splunk"], "os": ["Any"],
@@ -107,7 +115,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "DeviceNetworkEvents | where InitiatingProcessFileName =~ 'powershell.exe' and ActionType == 'ConnectionSuccess'"
         },
     },
-    "🏗️ Infraestrutura & Virtualização (VMware, Hyper-V)": {
+    "Infraestrutura & Virtualização (VMware, Hyper-V)": {
         "SOP: Provisionamento de VM (VMware)": {
             "description": "Procedimento para um analista N2 provisionar uma nova máquina virtual no vSphere a partir de um template, incluindo configuração de rede e storage.",
             "level": "N2", "tags": ["Infra", "Virtualization", "VMware"], "tools": ["vSphere", "vCenter"], "os": ["Windows", "Linux"],
@@ -139,7 +147,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "docker system prune -a"
         },
     },
-    "☁️ Cloud (AWS, Azure, GCP)": {
+    "Cloud (AWS, Azure, GCP)": {
         "SOP: Provisionamento de Instância EC2 (AWS)": {
             "description": "Crie um SOP para um analista N2 provisionar uma nova instância EC2 na AWS, incluindo: 1. Seleção da AMI e tipo de instância. 2. Configuração de VPC, subnet e Security Group. 3. Associação de chave SSH. 4. Aplicação de tags de identificação.",
             "level": "N2", "tags": ["Cloud", "AWS", "EC2"], "tools": ["AWS Console"], "os": ["Linux", "Windows"],
@@ -161,7 +169,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "oci compute instance list -c <compartment_ocid> --query 'data[*].{Name:\"display-name\", State:\"lifecycle-state\", Shape:shape}'"
         },
     },
-    "🖥️ Hardware & Periféricos": {
+    "Hardware & Periféricos": {
         "SOP: Busca de Drivers por Modelo": {
             "description": "Crie um SOP para um analista N1 encontrar e baixar drivers para um dispositivo ou periférico (ex: impressora, placa de vídeo, scanner, smartphone) a partir do site oficial do fabricante. O procedimento deve incluir: 1. Identificação correta do modelo do dispositivo. 2. Busca no Google usando termos como '[Fabricante] [Modelo] drivers'. 3. Navegação até a seção de suporte/downloads do site oficial. 4. Seleção do sistema operacional correto antes de baixar.",
             "level": "N1", "tags": ["Hardware", "Drivers", "Troubleshooting", "Desktop Support", "Field Service"], "tools": ["Web Browser"], "os": ["Any"],
@@ -173,7 +181,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "# Procedimento manual. O foco é a segurança e a identificação da fonte oficial."
         }
     },
-    "�️ Backup & DR (Veeam, Commvault)": {
+    "Backup & DR (Veeam, Commvault)": {
         "[Veeam] SOP: Execução de Job de Backup": {
             "description": "Crie um SOP para um analista N2 iniciar manualmente um job de backup no Veeam Backup & Replication e verificar seu status de conclusão.",
             "level": "N2", "tags": ["Backup", "Veeam"], "tools": ["Veeam"], "os": ["Windows"],
@@ -185,7 +193,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "# requests.get('http://your-commserve/WebConsole/api/Job', headers=headers)"
         },
     },
-    "9️⃣ Automation (Ansible, Terraform)": {
+    "Automation (Ansible, Terraform)": {
         "SOP: Execução de Playbook Ansible": {
             "description": "Crie um SOP para um analista N2 executar um playbook Ansible existente para aplicar uma configuração em um grupo de servidores, incluindo os comandos para checagem de sintaxe e execução em modo 'dry run' antes da aplicação real.",
             "level": "N2", "tags": ["Automation", "Ansible", "Configuration Management"], "tools": ["Ansible"], "os": ["Linux"],
@@ -197,7 +205,7 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
             "script": "provider \"aws\" { region = \"us-east-1\" }\n\nresource \"aws_vpc\" \"main\" { cidr_block = \"10.0.0.0/16\" }"
         },
     },
-    "👔 Gestão & Liderança Técnica": {
+    "Gestão & Liderança Técnica": {
         "SOP: Gestão de Crise em Incidente Crítico (P1)": {
             "description": "Crie um guia de ação para um Líder Técnico gerenciar um incidente P1. O guia deve focar em: 1. Estabelecer a comunicação (ponte de conferência, war room). 2. Identificar o impacto e os serviços afetados. 3. Acionar as equipes de suporte necessárias. 4. Coordenar a comunicação com stakeholders. 5. Iniciar a documentação do incidente.",
             "level": "Líder Técnico", "tags": ["ITIL", "Incident Management", "Governance"], "tools": ["ServiceNow", "Jira"], "os": ["Any"],
@@ -210,3 +218,4 @@ OPERATIONAL_PLAYBOOK_PROMPTS = {
         },
     },
 }
+
