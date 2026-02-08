@@ -1,108 +1,88 @@
 ﻿<div align="center">
   <img src="https://raw.githubusercontent.com/rmartini3/ia-assistente-ti/main/.assets/Logo_RM_Gold.png" alt="Logo" width="100">
   <h1>Assistente de IA para Profissionais de TI</h1>
-  <p>
-    Copiloto para diagnósticos, troubleshooting e automação operacional.
-  </p>
+  <p>Copiloto para diagnósticos, troubleshooting, automação e análise operacional.</p>
 </div>
 
 ---
 
-Este projeto é um assistente de IA construído em Streamlit e alimentado pela API da Groq. Ele funciona como um runbook inteligente para analistas N1, N2, N3 e líderes técnicos, entregando comandos, scripts e procedimentos alinhados a ITIL, COBIT e ISO 2700x.
+Aplicação em Streamlit integrada à API da Groq para apoiar times de Suporte Técnico, Service Desk, Field Services, NOC e SOC com orientação técnica, playbooks e análise assistida.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/rmartini3/ia-assistente-ti/main/.assets/demo.gif" alt="Demonstração do App" width="800">
-</div>
+## Novidades da versão 1.1
+- Central de Ajuda e FAQ no app (fora do chat).
+- Validador de Scripts com dois modos:
+  - Anexar arquivo completo.
+  - Analisar linha/bloco de código (análise superficial/indicativa).
+- Suporte de scripts para: `.cmd`, `.bat`, `.sh`, `.ps1`, `.html`, `.css`, `.js`, `.java`, `.py`, `.xml`, `.json`.
+- Visualizador e Analisador de Logs com suporte multi-formato (incluindo artefatos binários com metadados/hash).
+- Tratamento de erros amigável para integração com Groq, com detalhes técnicos expandíveis.
+- FAQ ampliado com comparativo de modelos e referências externas (W3C, NIST, ITIL, COBIT, ISO).
 
 ## Funcionalidades
-- Inteligência especializada: respostas para Redes, Segurança, Cloud, Banco de Dados, Suporte Técnico e mais.
-- Respostas rápidas: comandos CLI, scripts (Python, PowerShell, Bash) e queries SQL prontos para uso.
-- Guias HOW-TO: padrão (Diagnóstico, Comando, Guia de Execução, Referência Oficial).
-- Playbooks operacionais: catálogos para NOC, SOC, Cloud, ERP, ITSM, Infra, Hardware etc.
-- Governança: alinhado a ITIL, COBIT, ISO 27001, NIST.
-- Interface customizada: chat estilizado via CSS com suporte a temas claro/escuro.
+- Assistente conversacional técnico com foco operacional.
+- Playbooks para cenários recorrentes (NOC, SOC, Cloud, ITSM, Infra etc.).
+- Exportação de conversa em Markdown.
+- Validação estática de scripts com checklist de melhorias.
+- Investigação assistida de logs para causa raiz e plano de ação.
 
-## Tecnologias
-| Tecnologia | Propósito |
-| :--- | :--- |
-| **Python** | Linguagem principal |
-| **Streamlit** | Interface web |
-| **Groq** | Inferência LLM |
-| **Pillow** | Manipulação de imagens do app |
-| **python-dotenv** | Variáveis de ambiente (API Key) |
+## Stack
+- Python
+- Streamlit
+- Groq SDK
+- python-dotenv
+- CSS customizado
 
-## Execução Local
-**Pré-requisitos**: Python 3.8+ e chave de API da Groq.
+## Execução local
+Pré-requisitos: Python 3.8+ e chave de API da Groq.
 
-1. Clone o repositório  
-   ```bash
-   git clone https://github.com/rmartini3/ia-assistente-ti.git
-   cd ia-assistente-ti
-   ```
-2. Crie e ative o ambiente virtual  
-   ```powershell
-   # Windows
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   ```  
-   ```bash
-   # macOS / Linux
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-3. Instale as dependências  
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Configure sua API Key  
-   Crie um `.env` na raiz com:  
-   ```
-   GROQ_API_KEY="SUA_CHAVE_API_AQUI"
-   ```
-   Se não criar o `.env`, informe a chave na barra lateral do app.
-5. Execute a aplicação  
-   ```bash
-   streamlit run app.py
-   ```
-   O navegador abre em http://localhost:8501 (por padrão).
-
-## Atalho rápido (Windows)
-Se quiser um atalho manual, crie um arquivo `executar-assistente.bat` com:
+1. Clone o repositório
+```bash
+git clone https://github.com/rmartini3/ia-assistente-ti.git
+cd ia-assistente-ti
 ```
-@echo off
-rem Ajuste a pasta abaixo para onde o projeto/instalação está:
-rem Exemplo recomendado: C:\Windows\Temp\AssistenteIATI
-rem Outro exemplo: C:\Users\SeuUsuario\Documents\Projetos\AssistenteIATI
-pushd "C:\Windows\Temp\AssistenteIATI"
-call .\.venv\Scripts\activate
-streamlit run app.py
-popd
-pause
-```
-Duplo-clique para iniciar; a URL aparece no console.
-Alternativa: execute `instalar-assistente.cmd` para criar atalho automaticamente.
 
-## Instalador simples (.cmd)
-Para copiar o app, criar atalho na Área de Trabalho e opcionalmente limpar o zip/origem:
-1. Baixe e descompacte o projeto.
-2. Execute `instalar-assistente.cmd`.
-3. Informe a pasta de instalação (padrão recomendado: `C:\Windows\Temp\AssistenteIATI`). Se preferir, digite outro caminho, por exemplo `C:\Users\SeuUsuario\Documents\Projetos\AssistenteIATI`.
-4. O script cria atalho no Desktop apontando para `run_app.exe` ou `app.exe` (se existir) ou para `executar-assistente.bat` após montar venv e instalar dependências.
-5. Opcionalmente apaga o zip e a pasta de origem usados na instalação.
-
-## Gerar executável (Windows)
-Empacote com PyInstaller (opcional, se quiser distribuir em um único `.exe`):
+2. Crie e ative o ambiente virtual
 ```powershell
-pip install pyinstaller
-pyinstaller --noconfirm --onefile ^
-  --add-data "style.css;." ^
-  --add-data "system_prompt.md;." ^
-  --add-data "favicon.ico;." ^
-  --add-data "playbooks.py;." ^
-  app.py
+# Windows
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
-O binário sai em `dist/app.exe`; ao rodar, abre o servidor local e imprime a URL.
+
+```bash
+# macOS / Linux
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+3. Instale as dependências
+```bash
+pip install -r requirements.txt
+```
+
+4. Configure a chave
+Crie um arquivo `.env` na raiz:
+```env
+GROQ_API_KEY="SUA_CHAVE_API_AQUI"
+```
+
+5. Inicie o app
+```bash
+streamlit run app.py
+```
+
+## Segurança e conduta
+- Política de segurança: veja `SECURITY.md`.
+- Código de conduta: veja `CODE_OF_CONDUCT.md`.
+- Este projeto não executa automaticamente scripts enviados; a análise é estática e assistida por IA.
+
+## Limitações importantes
+- A análise por linha/bloco de código é parcial e pode não refletir todo o comportamento de execução.
+- Resultados do validador e do analisador de logs são indicativos e devem ser validados em ambiente de testes.
+- Conformidade formal (W3C/ISO/COBIT/ITIL) depende de processo e auditoria, não apenas da saída da IA.
 
 ## Contribuições
-Contribuições são bem-vindas! Abra uma issue para bugs/ideias ou um Pull Request para código.
+Contribuições são bem-vindas via Issues e Pull Requests.
 
+## Contato
+- LinkedIn: https://linkedin.com/in/rafael-martiniano
+- Email: rmartini3corp@outlook.com
